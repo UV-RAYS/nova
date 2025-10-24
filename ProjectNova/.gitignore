@@ -1,0 +1,52 @@
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcuserstate
+*.xcworkspacedata
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Accidentally committed build files
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+Package.pins
+Package.resolved
+.swiftpm/
+
+# Derived data
+DerivedData/
+
+# Various settings
+*.moved-aside
+*.superclass
+*.SloppyClass
+*.mmAttributes
+*.classAttributes
+*.funcAttributes
+*.oTestStatistics
+*.wtfsettings
+
+# Core Data
+*.xcdatamodeld/
+*.xcassets/
+
+# Code Injection
+CodeInjectionResults.txt

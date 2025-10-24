@@ -16,19 +16,39 @@ A full-featured iOS app combining Apple Watch HealthKit data, internal task/goal
 - Apple Watch (for HealthKit data)
 - Supervised device (for full Screen Time controls)
 
-## Setup Instructions
+## Creating the Xcode Project
 
-1. Open `ProjectNova.xcodeproj` in Xcode
-2. Select your development team in project settings
-3. Enable the following capabilities:
+Since this project was developed on Windows, you'll need to create the Xcode project manually:
+
+1. Open Xcode
+2. Select "Create a new Xcode project"
+3. Choose "App" under iOS templates
+4. Fill in the project details:
+   - Product Name: ProjectNova
+   - Team: Select your development team
+   - Interface: SwiftUI
+   - Language: Swift
+   - Leave "Use Core Data" unchecked (we implement our own CoreData stack)
+5. Choose a location to save the project
+6. Add the existing files to the project:
+   - Drag and drop all the files from the ProjectNova directory into your Xcode project
+   - Make sure to check "Copy items if needed" and "Create groups"
+7. Configure the project settings as described below
+
+Alternatively, you can use the pre-created Xcode project files in the `ProjectNova.xcodeproj` directory. These files provide a basic project structure that you can open directly in Xcode.
+
+You can also use the `setup_xcode_project.sh` script for detailed instructions on setting up the project.
+
+## Project Configuration
+
+After creating the project, you need to configure the following:
+
+1. In the project settings, enable the following capabilities:
    - HealthKit
    - Family Controls
    - Background Modes (if needed)
-4. Build and run on simulator or device
 
-## Entitlements Required
-
-Add these entitlements in your app's entitlements file:
+2. Add these entitlements in your app's entitlements file:
 
 ```
 <key>com.apple.developer.healthkit</key>
@@ -36,6 +56,15 @@ Add these entitlements in your app's entitlements file:
 <key>com.apple.developer.family-controls</key>
 <true/>
 ```
+
+3. Add the required frameworks to your project:
+   - HealthKit
+   - FamilyControls
+   - ManagedSettings
+   - DeviceActivity
+   - CoreData
+   - UserNotifications
+   - Combine
 
 ## Running in Simulator
 
@@ -80,7 +109,9 @@ ProjectNova/
 │   ├── Task.swift
 │   ├── HealthSummary.swift
 │   ├── ReportCard.swift
-│   └── RewardRule.swift
+│   ├── RewardRule.swift
+│   ├── TaskEntity.swift
+│   └── TaskEntity+CoreDataProperties.swift
 ├── ViewModels/
 │   ├── DashboardViewModel.swift
 │   ├── TaskManagerViewModel.swift
@@ -108,7 +139,8 @@ ProjectNova/
 │   ├── NotificationService.swift
 │   ├── ReportService.swift
 │   ├── RewardEngine.swift
-│   └── AIInsightsService.swift
+│   ├── AIInsightsService.swift
+│   └── CoreDataStack.swift
 ├── Resources/
 │   ├── Assets.xcassets
 │   └── Config/
@@ -116,6 +148,19 @@ ProjectNova/
 ├── Tests/
 │   ├── UnitTests/
 │   └── UITests/
+├── ProjectNova.xcodeproj/
+│   ├── project.pbxproj
+│   ├── project.xcworkspace/
+│   ├── xcshareddata/
+│   └── xcuserdata/
+├── ProjectNova.xcdatamodeld/
+│   └── ProjectNova.xcdatamodel/
+├── Preview Content/
+├── Podfile
+├── Info.plist
+├── ProjectNova.entitlements
+├── create_project.sh
+├── setup_xcode_project.sh
 └── README.md
 ```
 

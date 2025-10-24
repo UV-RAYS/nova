@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Project Nova Xcode Project Setup Script
+
+echo "Project Nova Xcode Project Setup"
+echo "================================"
+
+echo "This script will help you set up the Xcode project for Project Nova."
+
+echo "Please follow these steps:"
+echo ""
+echo "1. Open Xcode"
+echo "2. Select 'Create a new Xcode project'"
+echo "3. Choose 'App' under iOS templates"
+echo "4. Fill in the project details:"
+echo "   - Product Name: ProjectNova"
+echo "   - Team: Select your development team"
+echo "   - Interface: SwiftUI"
+echo "   - Language: Swift"
+echo "5. Choose the ProjectNova directory as the location"
+echo "6. After creating the project, add the following files to your project:"
+echo "   - All files in the App/ directory"
+echo "   - All files in the Models/ directory"
+echo "   - All files in the ViewModels/ directory"
+echo "   - All files in the Views/ directory"
+echo "   - All files in the Services/ directory"
+echo "   - All files in the Resources/ directory"
+echo "   - All files in the Tests/ directory"
+echo ""
+echo "7. Configure the project settings:"
+echo "   - Enable HealthKit capability"
+echo "   - Enable Family Controls capability"
+echo "   - Add the entitlements from ProjectNova.entitlements"
+echo "   - Add the Info.plist file"
+echo ""
+echo "8. Run 'pod install' if you have CocoaPods installed"
+echo ""
+echo "Your project should now be ready to build and run!"

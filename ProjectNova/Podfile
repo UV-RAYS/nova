@@ -1,0 +1,20 @@
+# Project Nova Podfile
+
+platform :ios, '16.0'
+
+target 'ProjectNova' do
+  use_frameworks!
+  
+  # HealthKit and Family Controls are part of iOS SDK, no pods needed
+  
+  # Testing pods
+  target 'ProjectNovaTests' do
+    inherit! :search_paths
+    # Add testing dependencies here if needed
+  end
+  
+  target 'ProjectNovaUITests' do
+    inherit! :search_paths
+    # Add UI testing dependencies here if needed
+  end
+end
