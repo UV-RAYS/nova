@@ -9,25 +9,28 @@ workflows:
     environment:
       xcode: latest
       vars:
-        # 💡 FIX 1: The correct path to the project is in the subdirectory.
-        XCODE_PROJECT_NAME: "ProjectNova/ProjectNova.xcodeproj" 
+        # FIX: Changed path to point to the .xcworkspace file, which is MANDATORY after 'pod install'.
+        XCODE_PROJECT_NAME: "ProjectNova/ProjectNova.xcworkspace"
         XCODE_SCHEME: "ProjectNova"
 
     # build steps
     scripts:
-      # 1. Install CocoaPods (skip if not used)
+      # 1. Install CocoaPods (Crucial: runs successfully, creating the .xcworkspace file)
       - name: Install CocoaPods
         script: |
-          # 💡 FIX 2: Check for Podfile in the subdirectory and run pod install from there.
           if [ -f ProjectNova/Podfile ]; then
+            echo "Podfile found. Installing dependencies."
             cd ProjectNova
             pod install
             cd ..
+          else
+            echo "No Podfile found. Skipping pod install."
           fi
 
       # 2. Set up code signing
       - name: Set up code signing
         script: |
+          # This tool is smart enough to use the workspace path to deduce the project.
           app-store-connect fetch-signing-files "$XCODE_PROJECT_NAME" \
             --platform IOS \
             --type IOS_APP_STORE \
@@ -37,13 +40,15 @@ workflows:
       # 3. Run unit tests (optional)
       - name: Run Unit Tests
         script: |
-          xcodebuild test -project "$XCODE_PROJECT_NAME" -scheme "$XCODE_SCHEME" -destination 'platform=iOS Simulator,name=iPhone 14'
+          # FIX: Must use the -workspace flag when building with an .xcworkspace file.
+          xcodebuild test -workspace "$XCODE_PROJECT_NAME" -scheme "$XCODE_SCHEME" -destination 'platform=iOS Simulator,name=iPhone 14'
 
       # 4. Build IPA
       - name: Build IPA
         script: |
+          # FIX: Must use the --workspace flag for xcode-project build-ipa.
           xcode-project build-ipa \
-            --project "$XCODE_PROJECT_NAME" \
+            --workspace "$XCODE_PROJECT_NAME" \
             --scheme "$XCODE_SCHEME"
 
     # artifacts (IPA will be downloadable)
