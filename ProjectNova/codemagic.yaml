@@ -1,0 +1,49 @@
+workflows:
+  ios-native-build:
+    name: Project Nova iOS Build (IPA Only)
+    
+    # mac hardware
+    instance_type: mac_mini_m1
+    
+    # environment
+    environment:
+      xcode: latest
+      vars:
+        XCODE_PROJECT_NAME: "ProjectNova.xcodeproj"
+        XCODE_SCHEME: "ProjectNova"
+    
+    # build steps
+    scripts:
+      # 1. Install CocoaPods (skip if not used)
+      - name: Install CocoaPods
+        script: |
+          if [ -f Podfile ]; then
+            pod install
+          fi
+
+      # 2. Set up code signing
+      - name: Set up code signing
+        script: |
+          app-store-connect fetch-signing-files "$XCODE_PROJECT_NAME" \
+            --platform IOS \
+            --type IOS_APP_STORE \
+            --create
+          xcode-project use-profiles
+
+      # 3. Run unit tests (optional)
+      - name: Run Unit Tests
+        script: |
+          xcodebuild test -project "$XCODE_PROJECT_NAME" -scheme "$XCODE_SCHEME" -destination 'platform=iOS Simulator,name=iPhone 14'
+
+      # 4. Build IPA
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT_NAME" \
+            --scheme "$XCODE_SCHEME"
+
+    # artifacts (IPA will be downloadable)
+    artifacts:
+      - build/ipa/*.ipa
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - $CM_BUILD_DIR/export_options.plist
