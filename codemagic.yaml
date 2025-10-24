@@ -1,24 +1,28 @@
 workflows:
   ios-native-build:
     name: Project Nova iOS Build (IPA Only)
-    
+
     # mac hardware
     instance_type: mac_mini_m1
-    
+
     # environment
     environment:
       xcode: latest
       vars:
-        XCODE_PROJECT_NAME: "ProjectNova.xcodeproj"
+        # 💡 FIX 1: The correct path to the project is in the subdirectory.
+        XCODE_PROJECT_NAME: "ProjectNova/ProjectNova.xcodeproj" 
         XCODE_SCHEME: "ProjectNova"
-    
+
     # build steps
     scripts:
       # 1. Install CocoaPods (skip if not used)
       - name: Install CocoaPods
         script: |
-          if [ -f Podfile ]; then
+          # 💡 FIX 2: Check for Podfile in the subdirectory and run pod install from there.
+          if [ -f ProjectNova/Podfile ]; then
+            cd ProjectNova
             pod install
+            cd ..
           fi
 
       # 2. Set up code signing
