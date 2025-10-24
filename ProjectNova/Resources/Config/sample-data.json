@@ -1,0 +1,63 @@
+{
+  "tasks": [
+    {
+      "title": "Morning Walk",
+      "description": "30-minute walk in the morning",
+      "targetValue": 30,
+      "unit": "minutes",
+      "reward": {
+        "name": "Early Riser",
+        "description": "Complete morning walk",
+        "condition": "taskCompletion",
+        "rewardType": "extensionTime",
+        "extensionMinutes": 15
+      }
+    },
+    {
+      "title": "Coding Practice",
+      "description": "Practice Swift for 1 hour",
+      "targetValue": 60,
+      "unit": "minutes"
+    },
+    {
+      "title": "Drink Water",
+      "description": "8 glasses of water",
+      "targetValue": 8,
+      "unit": "count"
+    },
+    {
+      "title": "Read Book",
+      "description": "Read for 30 minutes",
+      "targetValue": 30,
+      "unit": "minutes",
+      "reward": {
+        "name": "Bookworm",
+        "description": "Complete reading task",
+        "condition": "taskCompletion",
+        "rewardType": "appUnlock",
+        "bundleId": "com.apple.MobileStore",
+        "durationMinutes": 20
+      }
+    }
+  ],
+  "rewards": [
+    {
+      "name": "Productivity Master",
+      "description": "Complete 5 tasks in a day",
+      "condition": "taskCount",
+      "taskCount": 5,
+      "rewardType": "extensionTime",
+      "extensionMinutes": 30
+    },
+    {
+      "name": "Fitness Enthusiast",
+      "description": "Exercise for 60+ minutes",
+      "condition": "healthGoal",
+      "metric": "exerciseMinutes",
+      "value": 60,
+      "rewardType": "appUnlock",
+      "bundleId": "com.apple.Music",
+      "durationMinutes": 20
+    }
+  ]
+}
